@@ -10,11 +10,27 @@ import {
   TextInput,
   View,
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SigninScreen = ({ navigation }) => {
+const SigninScreen = ({ navigation, route }) => {
+  let setLoggedIn=route.params.setLoggedIn;
+  
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const storeData = async (token,user_type) => {
+    try {
+      await AsyncStorage.setItem(
+        'Token',
+        token
+      );
+      await AsyncStorage.setItem(
+        'UserType',
+        user_type
+      );
+    } catch (error) {}
+  };
 
   const onPress = (e) => {
     e.preventDefault();
@@ -25,16 +41,15 @@ const SigninScreen = ({ navigation }) => {
       password: password,
     };
     setLoading(true);
+
     axios
       .post("https://optum-backend-deploy.herokuapp.com/users/login", user)
       .then((res) => {
         // alert("login successful");
-        // console.log(res.data.user._id)
-
-        setLoading(false);
-        navigation.navigate('Profile', { 
-          user : res.data
-         })
+        console.log(res.data);
+        setLoading(false);      
+        storeData(res.data.token,res.data.user.user_type);
+        setLoggedIn(true);
       })
       .catch((err) => {
         alert(err);
