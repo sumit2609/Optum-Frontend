@@ -9,12 +9,12 @@ import {
 import { Avatar } from "react-native-elements";
 import { Button } from "react-native-elements";
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = ({ navigation, route }) => {
   let [userData, setUserData] = useState(null);
   let [loading, setLoading] = useState(false);
-  let [token,setToken]=useState(null);
+  let [token, setToken] = useState(null);
 
   const getProfile = (token) => {
     var config = {
@@ -27,7 +27,7 @@ const Profile = ({ navigation, route }) => {
     setLoading(true);
     axios(config)
       .then(function (response) {
-          console.log(response.data);
+        console.log(response.data);
         setUserData(response.data.userInfo);
         setLoading(false);
       })
@@ -36,42 +36,52 @@ const Profile = ({ navigation, route }) => {
         console.log(error);
       });
   };
-  
+
+  const EditProfile = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+  };
+
+  const AddMedicine = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+  };
+
   const retrieveData = async () => {
     try {
-      const value = await AsyncStorage.getItem('Token');
-      if(value!=null){
+      const value = await AsyncStorage.getItem("Token");
+      if (value != null) {
         setToken(value);
         getProfile(value);
       }
     } catch (error) {
       console.log(error);
-      // Error retrieving data
     }
   };
-  useEffect(()=>{
-      console.log('del')
+  useEffect(() => {
+    console.log("del");
     retrieveData();
-  },[]);
+  }, []);
+
   const onPress = (e) => {
     e.preventDefault();
   };
-  const  onPressLogout = async (e) => {
-      console.log(route.params.setLoggedIn);
+  const onPressLogout = async (e) => {
+    console.log(route.params.setLoggedIn);
     e.preventDefault();
     try {
-        await  AsyncStorage.removeItem('Token');
-        route.params.setLoggedIn(false);
-      } catch (e) {
-        // saving error
-      }
+      await AsyncStorage.removeItem("Token");
+      route.params.setLoggedIn(false);
+    } catch (e) {
+      // saving error
+    }
   };
 
   return (
     <View style={styles.container}>
-      {!loading&&userData ? (
-         <View style={styles.container}>
-  <Avatar
+      {!loading && userData ? (
+        <View style={styles.container}>
+          <Avatar
             containerStyle={styles.avatar}
             size="xlarge"
             rounded
@@ -88,37 +98,44 @@ const Profile = ({ navigation, route }) => {
           >
             <Text style={styles.text}>Name:</Text>
 
-            <Text style={styles.nameText}>
-              {" "}
-              Dr.{userData.firstName} {userData.lastName}
-            </Text>
-          </View>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                top: 100,
+              }}
+            >
+              <Pressable onPress={EditProfile} style={styles.button}>
+                <Text style={styles.buttonText}>Edit Profile</Text>
+              </Pressable>
+            </View>
 
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              top: 100,
-            }}
-          >
-            <Pressable onPress={onPress} style={styles.button}>
-              <Text style={styles.buttonText}>Edit Profile</Text>
-            </Pressable>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                top: 120,
+              }}
+            >
+              <Pressable onPress={AddMedicine} style={styles.button}>
+                <Text style={styles.buttonText}>Add Medicines</Text>
+              </Pressable>
+            </View>
 
-            <Pressable onPress={onPress} style={styles.button}>
-              <Text style={styles.buttonText}>Add Medicines</Text>
-            </Pressable>
             <Pressable onPress={onPressLogout} style={styles.button}>
               <Text style={styles.buttonText}>Logout</Text>
             </Pressable>
           </View>
-         </View>
-    
+        </View>
       ) : (
-        <View  style={[styles.container2, styles.horizontal]}>
-        
-          <ActivityIndicator style={{marginTop:-70}} color="#0000ff"  size="large" />
+        <View style={[styles.container2, styles.horizontal]}>
+          <ActivityIndicator
+            style={{ marginTop: -70 }}
+            color="#0000ff"
+            size="large"
+          />
         </View>
       )}
     </View>
@@ -137,7 +154,7 @@ const styles = StyleSheet.create({
   container2: {
     flex: 1,
     justifyContent: "center",
-},
+  },
   horizontal: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -160,7 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop:10,
+    marginTop: 10,
     width: 150,
     height: 40,
 

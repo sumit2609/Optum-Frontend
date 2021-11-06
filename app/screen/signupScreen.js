@@ -8,6 +8,7 @@ import {
   Pressable,
   Button,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,6 +28,14 @@ const SignupScreen = ({ navigation }) => {
   const [usertype, setusertype] = useState('patient');
   const [loading,setLoading]=useState(false);
 
+  const showToastWithGravity = () => {
+    ToastAndroid.showWithGravity(
+      "User successfully registered",
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
   const onPress = (e) => {
     e.preventDefault();
   
@@ -43,8 +52,9 @@ const SignupScreen = ({ navigation }) => {
     axios
       .post("https://optum-backend-deploy.herokuapp.com/users/signup", user)
       .then((res) => {
+        navigation.navigate('Signin')
         setLoading(false);
-        alert("user registered successfully");
+        showToastWithGravity();
       })
       .catch((err) => {
         setLoading(false);
