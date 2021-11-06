@@ -1,16 +1,24 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from "axios";
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable,ToastAndroid } from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddMedicine = () => {
+const AddMedicine = ({navigation}) => {
 
     const [medName,setmedName] = useState("");
     const [medPatent,setmedPatent] = useState("");
     const [medInfo,setmedInfo] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const AddMedicine = (e) =>{
-        e.preventDefault();
-        console.log("medicine added");
+    const showToastWithGravity = () => {
+        ToastAndroid.showWithGravity(
+        "Medicine Added Successfully",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+        );
+    };
+
+    const AddMedicine = (token) =>{
 
         const medicine = {
             medicineName: medName,
@@ -18,13 +26,40 @@ const AddMedicine = () => {
             medicineInfo: medInfo,
         }
 
-        axios.post("https://optum-backend-deploy.herokuapp.com/schedule/addMedicine",medicine)
-        .then((res) => {
-            console.log(res);
-        }).catch((err) => {
+        var config = {
+            method: "post",
+            url: "https://optum-backend-deploy.herokuapp.com/schedule/addMedicine",
+            headers:{
+                Authorization: `Bearer ${token}`,
+            },
+            body: medicine,
+        };
+
+        axios(config).then((res) =>{
+            setLoading(false);
+            showToastWithGravity();
+            navigation.navigate('Home');
+            console.log(res.data)
+        })
+        .catch((err) => {
+            alert("Error ocurred");
+            navigation.navigate('Home');
             console.log(err);
         })
+    }
 
+    const retriveToken = async () => {
+        try{
+            setLoading(true);
+            const token = await AsyncStorage.getItem("Token");
+            // console.log(token)
+            if(token != null){
+                AddMedicine(token);
+            }
+        }catch(error){
+            setLoading(false);
+            console.log(error);
+        }
     }
 
     return (
@@ -60,11 +95,15 @@ const AddMedicine = () => {
             </View>
 
             <View style={{top:240}} >
-                <Pressable  onPress={AddMedicine} style={styles.button}>
+                <Pressable  onPress={retriveToken} style={styles.button}>
                     <Text 
                         style={styles.buttonText}
                     >
-                        Add Medicine
+                        {loading ? (
+                            <Text style={styles.buttonText}>Loading...</Text>
+                            ) : (
+                             <Text style={styles.buttonText}>ADD MEDICINE</Text>
+                        )}
                     </Text>
                 </Pressable>
             </View>

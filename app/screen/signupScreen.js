@@ -96,13 +96,7 @@ const SignupScreen = ({ navigation }) => {
         value={password}
         onChangeText={(text) => setpassword(text)}
       />
-
-      {/* <TextInput
-        placeholder="UserType"
-        style={styles.input5}
-        value={usertype}
-        onChangeText={(text) => setusertype(text)}
-      /> */}
+      
        <Text style={styles.textew}>Select user type :</Text>
        <RadioForm
           radio_props={radio_props}
@@ -124,7 +118,7 @@ const SignupScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.signinbutton}
-        onPress={() => navigation.navigate("Signin")}
+        onPress={() => navigation.navigate("Home")}
       >
         <Text style={styles.signinbuttonText}>
           Already have an account? Sign In
