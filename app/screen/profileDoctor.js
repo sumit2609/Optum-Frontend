@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet,Pressable } from 'react-native'
 import { Avatar } from 'react-native-elements';
 
-const Profile = ({ navigation, route }) => {
+const ProfileDoctor = ({ navigation, route }) => {
     console.log(route.params.user.user.firstName);
     console.log(route.params.user.user.lastName);
 
@@ -14,6 +14,7 @@ const Profile = ({ navigation, route }) => {
     const AddMedicine = (e) =>{
         e.preventDefault();
         console.log("clicked")
+        navigation.navigate('AddMedicine');
     }
     return (
         <View style={styles.container} > 
@@ -23,7 +24,7 @@ const Profile = ({ navigation, route }) => {
                 rounded  
                 source={{uri: 'https://www.w3schools.com/howto/img_avatar.png',}}
             />
-            <View style={{flexDirection:'row',display:'flex',alignItems:'center',alignContent:'center', top:40}} >
+            <View style={{flexDirection:'row',display:'flex',alignItems:'center',alignContent:'center', top:80}} >
                 <Text style={styles.text} >
                     Name: 
                 </Text>
@@ -33,7 +34,7 @@ const Profile = ({ navigation, route }) => {
                 </Text>
             </View>
 
-            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:100}} >
+            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:160}} >
                 <Pressable onPress={EditProfile} style={styles.button}>
                     <Text
                         style={styles.buttonText}
@@ -43,7 +44,7 @@ const Profile = ({ navigation, route }) => {
                 </Pressable>
             </View>
 
-            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:120}} >
+            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:180}} >
 
                 <Pressable onPress={AddMedicine} style={styles.button}>
                     <Text 
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     avatar:{
-        top: 15,
+        top: 60,
     },
     text:{
         color: '#454545',
@@ -98,4 +99,4 @@ const styles = StyleSheet.create({
       },
 })
 
-export default Profile;
+export default ProfileDoctor;

@@ -38,7 +38,8 @@ const SigninScreen = ({ navigation }) => {
           navigation.navigate('ProfileDoctor', { 
             user : res.data
            })
-        }else if(User_Type == "patient"){
+        }
+        else if(User_Type == "patient"){
           navigation.navigate('ProfilePatient')
         }
       })
