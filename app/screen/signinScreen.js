@@ -28,8 +28,13 @@ const SigninScreen = ({ navigation }) => {
     axios
       .post("https://optum-backend-deploy.herokuapp.com/users/login", user)
       .then((res) => {
-        alert("login successful");
+        // alert("login successful");
+        // console.log(res.data.user._id)
+
         setLoading(false);
+        navigation.navigate('Profile', { 
+          user : res.data
+         })
       })
       .catch((err) => {
         alert(err);
