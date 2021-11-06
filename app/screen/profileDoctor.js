@@ -1,14 +1,19 @@
 import React from 'react'
 import { View, Text, StyleSheet,Pressable } from 'react-native'
 import { Avatar } from 'react-native-elements';
-import { Button } from 'react-native-elements';
 
 const Profile = ({ navigation, route }) => {
     console.log(route.params.user.user.firstName);
     console.log(route.params.user.user.lastName);
 
-    const onPress = (e) =>{
+    const EditProfile = (e) =>{
         e.preventDefault();
+        console.log("clicked")
+    }
+
+    const AddMedicine = (e) =>{
+        e.preventDefault();
+        console.log("clicked")
     }
     return (
         <View style={styles.container} > 
@@ -28,16 +33,19 @@ const Profile = ({ navigation, route }) => {
                 </Text>
             </View>
 
-            <View style={{display:'flex',alignItems:'center',justifyContent:'space-evenly', top:100}} >
-                <Pressable onPress={onPress} style={styles.button}>
+            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:100}} >
+                <Pressable onPress={EditProfile} style={styles.button}>
                     <Text
                         style={styles.buttonText}
                     >
                         Edit Profile
                     </Text>
                 </Pressable>
+            </View>
 
-                <Pressable onPress={onPress} style={styles.button}>
+            <View style={{display:'flex',alignItems:'center',justifyContent:'space-between', top:120}} >
+
+                <Pressable onPress={AddMedicine} style={styles.button}>
                     <Text 
                         style={styles.buttonText}
                     >

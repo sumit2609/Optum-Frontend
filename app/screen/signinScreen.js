@@ -29,12 +29,18 @@ const SigninScreen = ({ navigation }) => {
       .post("https://optum-backend-deploy.herokuapp.com/users/login", user)
       .then((res) => {
         // alert("login successful");
-        // console.log(res.data.user._id)
+        // console.log(res.data.user.user_type)
+        var User_Type = res.data.user.user_type;
 
         setLoading(false);
-        navigation.navigate('Profile', { 
-          user : res.data
-         })
+
+        if(User_Type === "doctor"){
+          navigation.navigate('ProfileDoctor', { 
+            user : res.data
+           })
+        }else if(User_Type == "patient"){
+          navigation.navigate('ProfilePatient')
+        }
       })
       .catch((err) => {
         alert(err);
