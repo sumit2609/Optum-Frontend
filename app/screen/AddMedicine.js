@@ -25,14 +25,20 @@ const AddMedicine = ({navigation}) => {
             medicinePatent: medPatent,
             medicineInfo: medInfo,
         }
+        console.log(medicine);
+        var data = JSON.stringify({
+            "medicine": medicine
+            
+        });
 
         var config = {
             method: "post",
             url: "https://optum-backend-deploy.herokuapp.com/schedule/addMedicine",
             headers:{
                 Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             },
-            body: medicine,
+            data: data,
         };
 
         axios(config).then((res) =>{

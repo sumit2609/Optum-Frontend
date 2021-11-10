@@ -16,7 +16,7 @@ const Profile = ({ navigation, route }) => {
   let [loading, setLoading] = useState(false);
   let [token, setToken] = useState(null);
 
-//   console.log(userData.firstName)
+  //   console.log(userData.firstName)
 
   const getProfile = (token) => {
     var config = {
@@ -47,7 +47,7 @@ const Profile = ({ navigation, route }) => {
   const AddMedicine = (e) => {
     e.preventDefault();
     console.log("clicked");
-    navigation.navigate('addMedicine')
+    navigation.navigate("addMedicine");
   };
 
   const retrieveData = async () => {
@@ -67,9 +67,9 @@ const Profile = ({ navigation, route }) => {
     retrieveData();
   }, []);
 
-//   const onPress = (e) => {
-//     e.preventDefault();
-//   };
+  //   const onPress = (e) => {
+  //     e.preventDefault();
+  //   };
 
   const onPressLogout = async (e) => {
     console.log(route.params.setLoggedIn);
@@ -84,80 +84,86 @@ const Profile = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-
       {!loading && userData ? (
-
-            <View style={styles.container}>
-
-            <Avatar
-                containerStyle={styles.avatar}
-                size="xlarge"
-                rounded
-                source={{ uri: "https://www.w3schools.com/howto/img_avatar.png" }}
-            />
-            
-            <View
-                style={{
-                    flexDirection: "row",
-                    display: "flex",
-                    alignItems: "center",
-                    alignContent: "center",
-                    justifyContent: "space-between",
-                    top: 80,
-                }}
-            >
-                <View
-                style={{
-                    flexDirection: "row",
-                    display: "flex",
-                    alignItems: "center",
-                    alignContent: "center",
-                    justifyContent: "space-between",
-                    // top: 80,
-                }}
-                >
-                    <Text style={styles.text}>Name: </Text>
-                    <Text style={styles.nameText}>Dr. {userData.firstName} {userData.lastName}</Text>
-                </View>
-            </View>
-
-            <View
-            styles={{
-                flexDirection: "row",
-                display: "flex",
-                alignItems: "center",
-                alignContent: "center",
+        <View style={styles.container}>
+          <View
+            style={{
+              marginTop: 40,
             }}
+          >
+            <Avatar
+              containerStyle={styles.avatar}
+              size="xlarge"
+              rounded
+              source={{ uri: "https://www.w3schools.com/howto/img_avatar.png" }}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              display: "flex",
+              alignItems: "center",
+              alignContent: "center",
+              justifyContent: "space-between",
+              // top: 80,
+              marginTop: 80,
+            }}
+          >
+            <Text style={styles.text}>Name: </Text>
+            <Text style={styles.nameText}>
+              Dr. {userData.firstName} {userData.lastName}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: 50,
+            }}
+          >
+            <View
+              style={{
+                marginBottom: 10,
+              }}
             >
-                    <View
-                        style={{top: 160}}
-                    >
-                        <Pressable onPress={AddMedicine} style={styles.button}>
-                            <Text style={styles.buttonText}>Add Medicines</Text>
-                        </Pressable>
-                    </View>
-
-                    <View
-                        style={{top: 180}}
-                    >
-                        <Pressable onPress={EditProfile} style={styles.button}>
-                            <Text style={styles.buttonText}>Edit Profile</Text>
-                        </Pressable>
-                    </View>
-
-                    <View
-                        style={{top: 200}}
-                    >
-                        <Pressable onPress={onPressLogout} style={styles.button}>
-                            <Text style={styles.buttonText}>Logout</Text>
-                        </Pressable>
-                    </View>
-
+              <Pressable onPress={AddMedicine} style={styles.button}>
+                <Text style={styles.buttonText}>Add Medicines</Text>
+              </Pressable>
             </View>
-    </View>
 
+            <View
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              <Pressable onPress={EditProfile} style={styles.button}>
+                <Text style={styles.buttonText}>Edit Profile</Text>
+              </Pressable>
+            </View>
+            <View
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              <Pressable onPress={(e)=>{
+                e.preventDefault();
+                navigation.navigate('setSchedule');
+              }} style={styles.button}>
+                <Text style={styles.buttonText}>Set Schedule</Text>
+              </Pressable>
+            </View>
+            <View
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              <Pressable onPress={onPressLogout} style={styles.button}>
+                <Text style={styles.buttonText}>Logout</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
       ) : (
-
         <View style={[styles.container2, styles.horizontal]}>
           <ActivityIndicator
             style={{ marginTop: -70 }}
@@ -166,7 +172,6 @@ const Profile = ({ navigation, route }) => {
           />
         </View>
       )}
-
     </View>
   );
 };
