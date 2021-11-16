@@ -11,6 +11,7 @@ import AddMedicine from "./app/screen/AddMedicine.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfilePatient from "./app/screen/profilePatient";
 import SetSchedule from "./app/screen/ScheduleSet";
+import viewSchedule from "./app/screen/viewSchedule";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,9 +45,6 @@ export default function App() {
   useEffect(() => {
     retrieveData();
   }, []);
-  // useEffect(()=>{
-  //   console.log(loggedIn);
-  // });
 
   return (
     <NavigationContainer>
@@ -76,6 +74,7 @@ export default function App() {
               component={ProfilePatient}
               initialParams={{ setLoggedIn: setLoggedIn }}
             />
+            <Stack.Screen name="viewSchedule" component={viewSchedule} />
           </Stack.Navigator>
         )
       ) : (
@@ -91,7 +90,7 @@ export default function App() {
           />
           <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
-      )}
+      )} 
     </NavigationContainer>
   );
 }

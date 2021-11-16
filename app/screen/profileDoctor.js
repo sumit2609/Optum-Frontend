@@ -63,7 +63,7 @@ const Profile = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    console.log("del");
+    // console.log("del");
     retrieveData();
   }, []);
 
