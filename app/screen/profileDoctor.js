@@ -74,6 +74,7 @@ const Profile = ({ navigation, route }) => {
   const onPressLogout = async (e) => {
     console.log(route.params.setLoggedIn);
     e.preventDefault();
+    //
     try {
       await AsyncStorage.removeItem("Token");
       route.params.setLoggedIn(false);
@@ -137,7 +138,7 @@ const Profile = ({ navigation, route }) => {
               }}
             >
               <Pressable onPress={EditProfile} style={styles.button}>
-                <Text style={styles.buttonText}>Edit Profile</Text>
+                <Text style={styles.buttonText}>Insights</Text>
               </Pressable>
             </View>
             <View
