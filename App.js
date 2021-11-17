@@ -11,6 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfilePatient from "./app/screen/profilePatient";
 import SetSchedule from "./app/screen/ScheduleSet";
 import viewSchedule from "./app/screen/viewSchedule";
+import EditPatientProfile from "./app/screen/EditPatientProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +35,7 @@ export default function App() {
       if (f_value != null) {
         setUserType(f_value);
       }
-      console.log(value,f_value);
+      console.log(value, f_value);
       // console.log(loggedIn);
     } catch (error) {
       console.log(error);
@@ -48,8 +49,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="editPatientProfile"
+          component={EditPatientProfile}
+        />
+      </Stack.Navigator>
       {loggedIn ? (
-        // user_type == "doctor" ? (
+        user_type == "doctor" ? (
           <Stack.Navigator
             screenOptions={{
               headerShown: true,
@@ -61,23 +72,25 @@ export default function App() {
               initialParams={{ setLoggedIn: setLoggedIn }}
             />
             <Stack.Screen name="viewSchedule" component={viewSchedule} />
-            <Stack.Screen name="addMedicine" component={AddMedicine} />
-            <Stack.Screen name="setSchedule" component={SetSchedule} />
+            <Stack.Screen
+              name="editPatientProfile"
+              component={EditPatientProfile}
+            />
           </Stack.Navigator>
-        // ) : (
-        //   <Stack.Navigator
-        //     screenOptions={{
-        //       headerShown: true,
-        //     }}
-        //   >
-        //     <Stack.Screen
-        //       name="Home"
-        //       component={ProfilePatient}
-        //       initialParams={{ setLoggedIn: setLoggedIn }}
-        //     />
-        //     <Stack.Screen name="viewSchedule" component={viewSchedule} />
-        //   </Stack.Navigator>
-        // )
+        ) : (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: true,
+            }}
+          >
+            <Stack.Screen
+              name="Home"
+              component={ProfilePatient}
+              initialParams={{ setLoggedIn: setLoggedIn }}
+            />
+            <Stack.Screen name="viewSchedule" component={viewSchedule} />
+          </Stack.Navigator>
+        )
       ) : (
         <Stack.Navigator
           screenOptions={{
@@ -91,7 +104,7 @@ export default function App() {
           />
           <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
-      )} 
+      )}
     </NavigationContainer>
   );
 }

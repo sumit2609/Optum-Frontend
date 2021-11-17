@@ -31,7 +31,7 @@ const ProfilePatient = ({ navigation, route }) => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log('here',err);
+        console.log(err);
       });
   };
 
