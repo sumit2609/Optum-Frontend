@@ -48,12 +48,12 @@ const ProfilePatient = ({navigation, route}) => {
 
     const onPressLogout = async(e) =>{
         console.log("logout")
-        try{
-            await AsyncStorage.removeItem("Token");
-            route.params.setLoggedIn(false);
-        }catch(e){
-            console.log(e);
-        }
+        // try{
+        //     await AsyncStorage.removeItem("Token");
+        //     route.params.setLoggedIn(false);
+        // }catch(e){
+        //     console.log(e);
+        // }
     }
 
     return (
@@ -112,7 +112,20 @@ const ProfilePatient = ({navigation, route}) => {
                         >
                             <Text style={styles.buttonText} >See medicine Schedule</Text>
                         </Pressable>
-                    </View>    
+                    </View> 
+
+                    <View
+                        style={{paddingTop: 20}}
+                    >
+                        <Pressable
+                            onPress={(e) => {
+                                navigation.navigate('editPatientProfile',{token});
+                            }}
+                            style={styles.button}
+                        >
+                            <Text style={styles.buttonText} >Edit Profile</Text>
+                        </Pressable>
+                    </View>   
 
                     <View
                         style={{paddingTop: 20}}
